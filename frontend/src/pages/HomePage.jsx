@@ -17,7 +17,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    courseApi.getPublic({}).then(r => setCourses(r.data.slice(0, 6))).catch(() => {}).finally(() => setLoading(false))
+    courseApi.getPublic({}).then(r => setCourses((Array.isArray(r.data) ? r.data : []).slice(0, 6))).catch(() => {}).finally(() => setLoading(false))
   }, [])
 
   return (

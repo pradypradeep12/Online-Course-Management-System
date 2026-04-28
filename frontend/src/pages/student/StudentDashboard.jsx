@@ -11,7 +11,7 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    enrollmentApi.getMyEnrollments().then(r => setEnrollments(r.data)).catch(() => {}).finally(() => setLoading(false))
+    enrollmentApi.getMyEnrollments().then(r => setEnrollments(Array.isArray(r.data) ? r.data : [])).catch(() => {}).finally(() => setLoading(false))
   }, [])
 
   const active = enrollments.filter(e => e.status === 'ACTIVE').length

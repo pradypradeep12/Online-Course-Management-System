@@ -13,9 +13,10 @@ export default function EducatorDashboard() {
 
   useEffect(() => {
     courseApi.getMyCourses().then(async r => {
-      setCourses(r.data)
+      const data = Array.isArray(r.data) ? r.data : []
+      setCourses(data)
       let total = 0
-      for (const c of r.data) {
+      for (const c of data) {
         try {
           const er = await enrollmentApi.getCourseEnrollments(c.id)
           total += er.data.length

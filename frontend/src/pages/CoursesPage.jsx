@@ -22,7 +22,7 @@ export default function CoursesPage() {
       keyword: keyword || undefined,
       category: category !== 'All' ? category : undefined,
       level: level !== 'All' ? level : undefined,
-    }).then(r => setCourses(r.data)).catch(() => {}).finally(() => setLoading(false))
+    }).then(r => setCourses(Array.isArray(r.data) ? r.data : [])).catch(() => setCourses([])).finally(() => setLoading(false))
   }
 
   useEffect(() => { fetchCourses() }, [category, level])

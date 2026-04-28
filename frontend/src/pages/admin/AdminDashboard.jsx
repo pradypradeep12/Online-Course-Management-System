@@ -10,7 +10,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     Promise.all([userApi.getAll(), courseApi.getAll()])
-      .then(([ur, cr]) => { setUsers(ur.data); setCourses(cr.data) })
+      .then(([ur, cr]) => { setUsers(Array.isArray(ur.data) ? ur.data : []); setCourses(Array.isArray(cr.data) ? cr.data : []) })
       .catch(() => {}).finally(() => setLoading(false))
   }, [])
 
