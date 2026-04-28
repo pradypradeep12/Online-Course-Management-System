@@ -1,5 +1,6 @@
 import { clsx } from 'clsx'
 import { X, Loader2, AlertCircle, BookOpen } from 'lucide-react'
+import { forwardRef } from 'react'
 
 export function Button({ children, variant = 'primary', size = 'md', loading, className, ...props }) {
   const base = 'inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
@@ -19,11 +20,12 @@ export function Button({ children, variant = 'primary', size = 'md', loading, cl
   )
 }
 
-export function Input({ label, error, className, ...props }) {
+export const Input = forwardRef(({ label, error, className, ...props }, ref) => {
   return (
     <div className="space-y-1">
       {label && <label className="block text-sm font-medium text-gray-700">{label}</label>}
       <input
+        ref={ref}
         className={clsx('w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-sm',
           error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300', className)}
         {...props}
@@ -31,13 +33,16 @@ export function Input({ label, error, className, ...props }) {
       {error && <p className="text-xs text-red-600 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{error}</p>}
     </div>
   )
-}
+})
 
-export function Select({ label, error, children, className, ...props }) {
+Input.displayName = 'Input'
+
+export const Select = forwardRef(({ label, error, children, className, ...props }, ref) => {
   return (
     <div className="space-y-1">
       {label && <label className="block text-sm font-medium text-gray-700">{label}</label>}
       <select
+        ref={ref}
         className={clsx('w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-sm bg-white',
           error ? 'border-red-500' : 'border-gray-300', className)}
         {...props}
@@ -47,13 +52,16 @@ export function Select({ label, error, children, className, ...props }) {
       {error && <p className="text-xs text-red-600 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{error}</p>}
     </div>
   )
-}
+})
 
-export function Textarea({ label, error, className, ...props }) {
+Select.displayName = 'Select'
+
+export const Textarea = forwardRef(({ label, error, className, ...props }, ref) => {
   return (
     <div className="space-y-1">
       {label && <label className="block text-sm font-medium text-gray-700">{label}</label>}
       <textarea
+        ref={ref}
         className={clsx('w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-sm resize-none',
           error ? 'border-red-500' : 'border-gray-300', className)}
         rows={4}
@@ -62,7 +70,9 @@ export function Textarea({ label, error, className, ...props }) {
       {error && <p className="text-xs text-red-600 flex items-center gap-1"><AlertCircle className="w-3 h-3" />{error}</p>}
     </div>
   )
-}
+})
+
+Textarea.displayName = 'Textarea'
 
 export function Modal({ isOpen, onClose, title, children, size = 'md' }) {
   if (!isOpen) return null
